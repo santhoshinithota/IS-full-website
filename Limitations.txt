@@ -1,0 +1,4 @@
+- Every recording takes roughly 1 MB per minute.
+- On an max level, one recording is projected to be 2 minutes.
+- And our free tire on MongoDB has 512 MB of storage.
+- So we can have 250 recordings (approximately).
