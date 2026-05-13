@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import api from '../utils/api';
 import { Shield, Lock, User } from 'lucide-react';
 
@@ -16,7 +15,7 @@ export default function AdminLogin() {
             const res = await api.post('/admin/login', { username, password });
             localStorage.setItem('adminToken', res.data.token);
             navigate('/admin/dashboard');
-        } catch (err) {
+        } catch {
             setError('Invalid username or password.');
         }
     };

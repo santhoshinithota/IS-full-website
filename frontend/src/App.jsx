@@ -8,7 +8,7 @@ import AdminDashboard from './pages/AdminDashboard';
 function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-sky-50 font-sans text-slate-800 font-medium">
+      <div className="min-h-screen bg-slate-950 font-sans text-slate-100 antialiased">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/stories" element={<StorySelection />} />

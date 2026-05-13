@@ -19,13 +19,16 @@ router.post('/upload', upload.single('audio'), async (req, res) => {
             return res.status(400).json({ error: 'No audio file uploaded' });
         }
 
+        const durationNum = duration === '' || duration == null ? undefined : Number(duration);
+        const safeDuration = Number.isFinite(durationNum) ? durationNum : undefined;
+
         await new Promise((resolve, reject) => {
             const gridFSBucket = new mongoose.mongo.GridFSBucket(mongoose.connection.db, {
                 bucketName: 'recordings'
             });
 
             const uploadStream = gridFSBucket.openUploadStream(`${Date.now()}-${req.file.originalname}`, {
-                contentType: req.file.mimetype
+                contentType: req.file.mimetype || 'audio/webm',
             });
 
             uploadStream.end(req.file.buffer);
@@ -34,9 +37,9 @@ router.post('/upload', upload.single('audio'), async (req, res) => {
                 try {
                     const newRecording = new Recording({
                         childName,
-                        storyId,
+                        storyId: String(storyId ?? ''),
                         storyName,
-                        duration,
+                        duration: safeDuration,
                         fileId: uploadStream.id,
                     });
 
@@ -76,10 +79,11 @@ router.get('/audio/:id', async (req, res) => {
         });
 
         const fileId = new mongoose.Types.ObjectId(req.params.id);
-        const downloadStream = gridFSBucket.openDownloadStream(fileId);
+        const meta = await gridFSBucket.find({ _id: fileId }).limit(1).toArray();
+        const contentType = meta[0]?.contentType || 'audio/webm';
+        res.set('Content-Type', contentType);
 
-        // We can set default content type to audio/webm or audio/wav
-        res.set('Content-Type', 'audio/webm');
+        const downloadStream = gridFSBucket.openDownloadStream(fileId);
         downloadStream.pipe(res);
 
         downloadStream.on('error', () => {

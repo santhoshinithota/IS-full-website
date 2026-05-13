@@ -5,7 +5,7 @@ const Story = require('../models/Story');
 // Get all stories
 router.get('/', async (req, res) => {
     try {
-        const stories = await Story.find();
+        const stories = await Story.find().sort({ title: 1 });
         res.json(stories);
     } catch (err) {
         res.status(500).json({ error: err.message });
