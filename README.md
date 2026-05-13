@@ -2,7 +2,7 @@
 
 ### Design and Development of a Digital Interface for Remote Multilingual Child Language Narrative Assessment and Storytelling
 
-A research-grade web platform that elicits, records, and stores spoken narratives from children aged **5–12 years** using picture-based story prompts. The platform is built to support remote, parent- or teacher-administered child language assessment in multilingual and low-resource settings, while preserving the procedural consistency that traditional clinic- or lab-based protocols depend on.
+A research grade web platform that elicits, records, and stores spoken narratives from children aged **5–12 years** using picture-based story prompts. The platform is built to support remote, parent- or teacher-administered child language assessment in multilingual and low-resource settings, while preserving the procedural consistency that traditional clinic- or lab-based protocols depend on.
 
 ---
 
